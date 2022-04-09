@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"crypto/sha512"
 	"fmt"
+	"hash/crc32"
 	"log"
 	"os"
 	"strings"
@@ -65,11 +66,17 @@ func GetFileInfo(src string) {
 		}
 		fmt.Printf("\n# %s\n", src)
 		fmt.Printf("size:%d mtime:%s  %s\n", fileInfo.Size(), fileInfo.ModTime().Format("15:04:05 2006-02-01"), src)
+		fmt.Printf("CRC32:%x  %s\n", crc32sum(readFile), src)
 		fmt.Printf("MD5:%x  %s\n", md5sum(readFile), src)
 		fmt.Printf("SHA1:%x  %s\n", sha1sum(readFile), src)
 		fmt.Printf("SHA256:%x  %s\n", sha256sum(readFile), src)
 		fmt.Printf("SHA512:%x  %s\n", sha512sum(readFile), src)
 	}
+}
+
+func crc32sum(s []byte) uint32 {
+	crc32q := crc32.MakeTable(crc32.IEEE)
+	return crc32.Checksum(s, crc32q)
 }
 
 func md5sum(s []byte) []byte {
