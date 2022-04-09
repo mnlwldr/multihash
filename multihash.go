@@ -31,10 +31,15 @@ func main() {
 
 func GetFileInfo(src string) {
 	file, err := os.Open(src)
-	defer file.Close()
 	if err != nil {
 		return
 	}
+	defer func() {
+		err := file.Close()
+		if err != nil {
+			log.Println(err)
+		}
+	}()
 
 	fileInfo, err := os.Lstat(src)
 	if err != nil {
