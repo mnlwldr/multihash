@@ -6,6 +6,21 @@ import (
 	"testing"
 )
 
+func TestCRC32sum(t *testing.T) {
+	// 6677F57C
+	file, err := os.ReadFile("COPYING")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var want uint32 = 1719137660
+	got := crc32sum(file)
+
+	if want != got {
+		t.Fatalf("want: %d got: %d", want, got)
+	}
+}
+
 func TestMd5sum(t *testing.T) {
 	file, err := os.ReadFile("COPYING")
 	if err != nil {

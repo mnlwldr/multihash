@@ -66,7 +66,7 @@ func GetFileInfo(src string) {
 		}
 		fmt.Printf("\n# %s\n", src)
 		fmt.Printf("size:%d mtime:%s  %s\n", fileInfo.Size(), fileInfo.ModTime().Format("15:04:05 2006-02-01"), src)
-		fmt.Printf("CRC32:%x  %s\n", crc32sum(readFile), src)
+		fmt.Printf("CRC32:%d  %s\n", crc32sum(readFile), src)
 		fmt.Printf("MD5:%x  %s\n", md5sum(readFile), src)
 		fmt.Printf("SHA1:%x  %s\n", sha1sum(readFile), src)
 		fmt.Printf("SHA256:%x  %s\n", sha256sum(readFile), src)
